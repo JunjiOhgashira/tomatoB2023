@@ -1,0 +1,15 @@
+<?xml version="1.0" ?>
+<launch>
+  <node name="arm_ik_node" pkg="tomato_dynamixel" type="arm_ik_node" output="screen"/>
+  <node name="dynamixel_controller" pkg="tomato_dynamixel" type="dynamixel_controller" output="screen"/>
+
+  <arg name="model" default="$(find tomato_dynamixel)/urdf/crane.urdf" />
+  <param name="robot_description" command="$(find xacro)/xacro --inorder $(arg model)"/>
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find tomato_dynamixel)/config/crane_display.rviz"/>
+  <node pkg="tf2_ros" type="static_transform_publisher" name="base_link_tf" args="0 0 0 0 0 0 world arm/world"/>
+  
+  <node name="robot_state_publisher1" pkg="robot_state_publisher" type="robot_state_publisher">
+    <param name="tf_prefix" value="arm"/>
+    <remap to="arm_joint_states" from="joint_states"/>
+  </node>
+</launch>

@@ -1,0 +1,9 @@
+<?xml version="1.0" ?>
+<launch>
+  <node name="elevator_commander" pkg="tomato_dynamixel" type="elevator_commander">
+    <param name="elevator_speed" value="285"/>
+  </node>
+  <include file="$(find tomato_dynamixel)/launch/arm4d_ik.launch"/>
+  <include file="$(find tomato_kobuki)/launch/tomato_kobuki_joy.launch"/>
+  <include file="$(find tomato_kobuki)/launch/tomato_cam.launch"/>
+</launch>
